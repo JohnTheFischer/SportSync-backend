@@ -1,0 +1,142 @@
+createavenger = http://localhost:5000/api/auth/beavenger
+fetchallavenger = http://localhost:5000/api/auth/fetchallavenger
+FetchAvenger = http://localhost:5000/api/auth/fetchavenger
+
+
+createrookie = http://localhost:5000/api/auth/berookie
+fetchallrookie = http://localhost:5000/api/auth/fetchallrookie
+fetchrookie = http://localhost:5000/api/auth/fetchrookie
+
+createproject = http://localhost:5000/api/project/addproject
+fetchallproject = http://localhost:5000/api/project/fetchallprojects
+fetchproject = http://localhost:5000/api/project/fetchproject
+
+createevent = http://localhost:5000/api/events/addevent
+fetchallevent = http://localhost:5000/api/events/fetchallevents
+fetchevent = http://localhost:5000/api/events/fetchevent
+
+
+
+
+
+
+Rookie Model
+
+Name
+Email
+Phone
+Date Of Birth
+Skills
+{
+    Github,
+    LinkedIN,
+    Instagram
+}
+Image Of ID
+
+
+
+
+
+
+
+Avenger Model
+
+
+Name
+Email
+Phone
+Date Of Birth
+Skills
+{
+    Github,
+    LinkedIN,
+    Instagram
+}
+Image Of ID
+Response
+
+
+
+
+
+Event Model
+
+Title
+Sub Headline
+Description
+Date
+Venue
+Author
+
+
+
+
+Project Model
+
+Title
+Sub Headline
+Description
+Author(s)
+Github Link
+
+
+
+
+for first admin registration
+
+
+admin.js
+
+router.post('/register', 
+// fetchAdmin, 
+ async (req, res) => {
+    try {
+        // const admin = await Admin.findById(req.admin.id);
+        // console.log(admin.username);
+        // req.body.createdBy = admin.username;
+        // if (!!admin) {
+            if (true){
+            const usernameAdmin = await Admin.findOne({ username: req.body.username });
+            if (usernameAdmin) {
+                res.status(400).json({ message: 'Admin With This Username Already Exists' });
+                return;
+            }
+
+            const emailAdmin = await Admin.findOne({ email: req.body.email });
+            if (emailAdmin) {
+                res.status(400).json({ message: 'Admin With This Email Already Exists' });
+                return;
+            }
+
+            const salt = await bcrypt.genSalt(10);
+
+            const hashedPass = await bcrypt.hash(req.body.password, salt);
+            const newAdmin = new Admin({
+                ...req.body,
+                "password": hashedPass, 
+                createdBy: "system"
+            })
+
+            const admin = await newAdmin.save();
+
+            const data = {
+                admin: {
+                    id: admin.id
+                }
+            }
+
+            const adminToken = jwt.sign(data, JWT_SECRET)
+            res.status(200).json(adminToken);
+            return;
+        } else {
+            res.status(400).json('Admin Rights Needed');
+        }
+    } catch (error) {
+        res.status(400).json({ message: 'Possession Of Admin Rights Intended!' });
+        return;
+    }
+})
+
+
+NEXT_PUBLIC_SERVER

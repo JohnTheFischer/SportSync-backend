@@ -1,0 +1,32 @@
+{
+  "name": "bitlords-backend",
+  "version": "1.0.0",
+  "description": "A backend repository for our club bitlord's  official website",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Ajinkya And Team",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.19.2",
+    "cloudinary": "^1.33.0",
+    "cors": "^2.8.5",
+    "csv": "^6.0.5",
+    "csv-parse": "^5.0.4",
+    "csv-parser": "^3.0.0",
+    "dotenv": "^16.0.3",
+    "express": "^4.17.3",
+    "express-validator": "^6.14.2",
+    "fs": "^0.0.1-security",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^6.2.9",
+    "multer": "^1.4.5-lts.1",
+    "nodemon": "^2.0.20",
+    "path": "^0.12.7",
+    "random-words": "^1.1.2"
+  }
+}
